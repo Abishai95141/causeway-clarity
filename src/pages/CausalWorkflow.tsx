@@ -7,6 +7,7 @@ import { IdentificationGating } from '@/components/steps/IdentificationGating';
 import { EffectEstimation } from '@/components/steps/EffectEstimation';
 import { ExperimentPlanner } from '@/components/steps/ExperimentPlanner';
 import { DecisionBrief } from '@/components/steps/DecisionBrief';
+import { ActionInfoPanel } from '@/components/ActionInfoPanel';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -51,6 +52,9 @@ export default function CausalWorkflow() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
+          {/* Action Info Panel */}
+          <ActionInfoPanel currentStep={currentStep} />
+
           <div className="flex items-center gap-4">
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -59,9 +63,9 @@ export default function CausalWorkflow() {
               </Button>
             </Link>
             <div>
-              <h1 className="text-xl font-extrabold text-charcoal">CAUSAL WORKFLOW ENGINE</h1>
+              <h1 className="text-xl font-extrabold text-charcoal">CAUSEWAY WORKFLOW ENGINE</h1>
               <p className="text-sm text-muted-foreground">
-                6-step process to reduce siloed decision-making
+                6-step causal analysis process
               </p>
             </div>
           </div>

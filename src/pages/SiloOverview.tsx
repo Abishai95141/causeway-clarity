@@ -1,15 +1,17 @@
 import { silos } from '@/data/mockData';
 import { SiloCard } from '@/components/SiloCard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, AlertTriangle, Brain, Zap } from 'lucide-react';
+import { ArrowRight, AlertTriangle, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { StarburstBackground } from '@/components/StarburstBackground';
 
 export default function SiloOverview() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-16 md:py-24 border-b-2 border-charcoal">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-24 border-b-2 border-charcoal relative overflow-hidden">
+        <StarburstBackground />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl">
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="w-5 h-5 text-primary" />
@@ -31,8 +33,7 @@ export default function SiloOverview() {
             </p>
             <Link to="/workflow">
               <Button size="xl">
-                <Brain className="w-5 h-5 mr-2" />
-                START CAUSAL ANALYSIS
+                START CAUSEWAY ANALYSIS
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
@@ -116,7 +117,7 @@ export default function SiloOverview() {
           </p>
           <Link to="/workflow">
             <Button size="xl">
-              LAUNCH CAUSAL WORKFLOW ENGINE
+              LAUNCH CAUSEWAY ENGINE
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
