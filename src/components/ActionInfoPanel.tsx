@@ -2,36 +2,49 @@ import { useState, useEffect } from 'react';
 import { X, ChevronRight } from 'lucide-react';
 import { WorkflowStep } from '@/types/workflow';
 import { cn } from '@/lib/utils';
-import causewayIllustration from '@/assets/causeway-illustration.svg';
+
+// Step-specific illustrations
+import stepUnifyContext from '@/assets/step-unify-context.svg';
+import stepCausalQuery from '@/assets/step-causal-query.svg';
+import stepIdentification from '@/assets/step-identification.svg';
+import stepEstimation from '@/assets/step-estimation.svg';
+import stepExperiment from '@/assets/step-experiment.svg';
+import stepDecisionBrief from '@/assets/step-decision-brief.svg';
 
 interface ActionInfoPanelProps {
   currentStep: WorkflowStep;
 }
 
-const stepInfo: Record<WorkflowStep, { title: string; action: string }> = {
+const stepInfo: Record<WorkflowStep, { title: string; action: string; illustration: string }> = {
   1: {
     title: 'UNIFY CONTEXT',
     action: 'Action: SLM is identifying semantic overlaps between Product and Finance datasets to create a shared feature space.',
+    illustration: stepUnifyContext,
   },
   2: {
     title: 'CAUSAL QUERY',
     action: 'Action: Translating natural language business questions into a formal (Treatment, Outcome, Confounder) triplet.',
+    illustration: stepCausalQuery,
   },
   3: {
     title: 'IDENTIFICATION GATING',
     action: 'Action: Evaluating the Micro-DAG for "Backdoor Paths". The SLM is blocking non-causal associations.',
+    illustration: stepIdentification,
   },
   4: {
     title: 'EFFECT ESTIMATION',
     action: 'Action: Running double-machine learning via EconML to isolate the true treatment effect.',
+    illustration: stepEstimation,
   },
   5: {
     title: 'EXPERIMENT PLANNER',
     action: 'Action: Calculating Value of Information (VoI) to suggest the smallest necessary test to resolve uncertainty.',
+    illustration: stepExperiment,
   },
   6: {
     title: 'DECISION BRIEF',
     action: 'Action: Synthesizing reasoning, data, and uncertainty into a human-auditable memo.',
+    illustration: stepDecisionBrief,
   },
 };
 
@@ -54,7 +67,7 @@ export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <div className="m-4 bg-background/95 backdrop-blur-sm border-2 border-primary shadow-industrial-lg">
+        <div className="m-4 bg-background/95 backdrop-blur-sm border-2 border-primary shadow-industrial-lg overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b-2 border-primary bg-primary/5">
             <div className="flex items-center gap-2">
@@ -71,24 +84,34 @@ export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
             </button>
           </div>
 
-          {/* Title */}
-          <div className="px-4 py-3 border-b border-border">
-            <h3 className="text-sm font-extrabold uppercase tracking-wide text-primary">
+          {/* Title with integrated illustration */}
+          <div className="relative px-4 py-4 border-b border-border bg-gradient-to-br from-primary/5 to-transparent">
+            {/* Illustration as background overlay */}
+            <div className="absolute right-0 top-0 bottom-0 w-24 opacity-20 overflow-hidden">
+              <img 
+                src={info.illustration} 
+                alt="" 
+                className="w-full h-full object-cover object-left scale-150"
+              />
+            </div>
+            <h3 className="relative text-sm font-extrabold uppercase tracking-wide text-primary z-10">
               {info.title}
             </h3>
           </div>
 
-          {/* Illustration */}
-          <div className="px-4 py-3 border-b border-border flex justify-center">
-            <img 
-              src={causewayIllustration} 
-              alt="Causeway workflow illustration" 
-              className="w-32 h-32 object-contain"
-            />
+          {/* Illustration - properly integrated */}
+          <div className="relative px-4 py-4 border-b border-border bg-gradient-to-b from-muted/30 to-transparent">
+            <div className="flex items-center justify-center p-3 bg-white/50 rounded-lg border border-border/50 shadow-inner">
+              <img 
+                src={info.illustration} 
+                alt={`${info.title} illustration`} 
+                className="w-28 h-28 object-contain drop-shadow-sm"
+              />
+            </div>
           </div>
 
           {/* Action Content */}
-          <div className="px-4 py-4">
+          <div className="px-4 py-4 bg-gradient-to-t from-muted/20 to-transparent">
             <div className="flex items-start gap-2">
               <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
               <p className="font-mono text-xs leading-relaxed text-charcoal">
