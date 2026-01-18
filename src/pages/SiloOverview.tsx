@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, AlertTriangle, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { StarburstBackground } from '@/components/StarburstBackground';
+import causewayIllustration from '@/assets/causeway-illustration.svg';
 
 export default function SiloOverview() {
   return (
@@ -12,31 +13,44 @@ export default function SiloOverview() {
       <section className="py-16 md:py-24 border-b-2 border-charcoal relative overflow-hidden">
         <StarburstBackground />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-2 mb-4">
-              <AlertTriangle className="w-5 h-5 text-primary" />
-              <span className="text-sm font-bold uppercase tracking-wide text-primary">
-                4 Silo Conflicts Detected
-              </span>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="max-w-xl">
+              <div className="flex items-center gap-2 mb-4">
+                <AlertTriangle className="w-5 h-5 text-primary" />
+                <span className="text-sm font-bold uppercase tracking-wide text-primary">
+                  4 Silo Conflicts Detected
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-charcoal mb-6 leading-tight">
+                Your Silos Are Making
+                <br />
+                <span className="text-primary">Locally Rational</span>
+                <br />
+                Decisions
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8">
+                Each functional team optimizes for their own KPIs, creating conflicts that 
+                harm overall business outcomes. The Causal Workflow Engine unifies context 
+                to reveal the true impact of decisions.
+              </p>
+              <Link to="/workflow">
+                <Button size="xl">
+                  START CAUSEWAY ANALYSIS
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-charcoal mb-6 leading-tight">
-              Your Silos Are Making
-              <br />
-              <span className="text-primary">Locally Rational</span>
-              <br />
-              Decisions
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-              Each functional team optimizes for their own KPIs, creating conflicts that 
-              harm overall business outcomes. The Causal Workflow Engine unifies context 
-              to reveal the true impact of decisions.
-            </p>
-            <Link to="/workflow">
-              <Button size="xl">
-                START CAUSEWAY ANALYSIS
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+
+            {/* Right Illustration */}
+            <div className="hidden md:flex items-center justify-center relative">
+              <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent animate-pulse-slow" />
+              <img 
+                src={causewayIllustration} 
+                alt="Causeway decision intelligence illustration" 
+                className="w-full max-w-md h-auto relative z-10 drop-shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>

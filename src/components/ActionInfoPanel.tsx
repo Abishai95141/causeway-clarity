@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Info, X, ChevronRight } from 'lucide-react';
+import { X, ChevronRight } from 'lucide-react';
 import { WorkflowStep } from '@/types/workflow';
 import { cn } from '@/lib/utils';
+import causewayIllustration from '@/assets/causeway-illustration.svg';
 
 interface ActionInfoPanelProps {
   currentStep: WorkflowStep;
@@ -36,33 +37,16 @@ const stepInfo: Record<WorkflowStep, { title: string; action: string }> = {
 
 export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [shouldPulse, setShouldPulse] = useState(false);
 
-  // Auto-open and pulse when step changes
+  // Auto-open when step changes
   useEffect(() => {
     setIsOpen(true);
-    setShouldPulse(true);
-    const timer = setTimeout(() => setShouldPulse(false), 2000);
-    return () => clearTimeout(timer);
   }, [currentStep]);
 
   const info = stepInfo[currentStep];
 
   return (
     <>
-      {/* Toggle Button - Always visible */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={cn(
-          'fixed right-4 top-24 z-50 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg',
-          shouldPulse && 'animate-info-pulse',
-          isOpen && 'opacity-50 hover:opacity-100'
-        )}
-        aria-label="Toggle action info panel"
-      >
-        <Info className="w-5 h-5" />
-      </button>
-
       {/* Panel */}
       <div
         className={cn(
@@ -92,6 +76,15 @@ export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
             <h3 className="text-sm font-extrabold uppercase tracking-wide text-primary">
               {info.title}
             </h3>
+          </div>
+
+          {/* Illustration */}
+          <div className="px-4 py-3 border-b border-border flex justify-center">
+            <img 
+              src={causewayIllustration} 
+              alt="Causeway workflow illustration" 
+              className="w-32 h-32 object-contain"
+            />
           </div>
 
           {/* Action Content */}
