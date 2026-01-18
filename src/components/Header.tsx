@@ -23,7 +23,7 @@ export function Header() {
               C
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-extrabold tracking-tight text-white bg-charcoal px-2 py-0.5">
+              <h1 className="text-lg font-extrabold tracking-tight text-charcoal">
                 CAUSEWAY
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
