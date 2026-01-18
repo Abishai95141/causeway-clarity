@@ -1,13 +1,13 @@
 import { Header } from '@/components/Header';
-import SiloOverview from '@/pages/SiloOverview';
+import CausalWorkflow from '@/pages/CausalWorkflow';
 
-const Index = () => {
+const WorkflowPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <SiloOverview />
+      <CausalWorkflow />
     </div>
   );
 };
 
-export default Index;
+export default WorkflowPage;
