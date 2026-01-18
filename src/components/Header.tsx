@@ -1,4 +1,4 @@
-import { Brain, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,15 +17,17 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-background border-b-2 border-charcoal">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - Causeway Branding */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="p-2 bg-primary text-primary-foreground">
-              <Brain className="w-6 h-6" />
+            <div className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center font-extrabold text-xl">
+              C
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-extrabold tracking-tight">CADI-SLM</h1>
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground -mt-1">
-                Causality-Aware Decision Intelligence
+              <h1 className="text-lg font-extrabold tracking-tight text-white bg-charcoal px-2 py-0.5">
+                CAUSEWAY
+              </h1>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-0.5">
+                Causal Decision Intelligence
               </p>
             </div>
           </Link>
