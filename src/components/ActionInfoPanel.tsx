@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
-import { X, ChevronRight } from 'lucide-react';
+import { X, ChevronRight, ChevronUp } from 'lucide-react';
 import { WorkflowStep } from '@/types/workflow';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerClose,
+} from '@/components/ui/drawer';
 
 // Step-specific illustrations
 import stepUnifyContext from '@/assets/step-unify-context.svg';
@@ -50,6 +58,7 @@ const stepInfo: Record<WorkflowStep, { title: string; action: string; illustrati
 
 export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const isMobile = useIsMobile();
 
   // Auto-open when step changes
   useEffect(() => {
@@ -58,6 +67,75 @@ export function ActionInfoPanel({ currentStep }: ActionInfoPanelProps) {
 
   const info = stepInfo[currentStep];
 
+  // Mobile: Bottom drawer
+  if (isMobile) {
+    return (
+      <>
+        <Drawer open={isOpen} onOpenChange={setIsOpen}>
+          <DrawerContent className="max-h-[60vh]">
+            <div 
+              className="absolute inset-0 opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: `url(${info.illustration})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+            <div className="relative z-10">
+              <DrawerHeader className="border-b-2 border-primary bg-primary/5">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                    STEP {currentStep}
+                  </span>
+                </div>
+                <DrawerTitle className="text-sm font-extrabold uppercase tracking-wide text-primary mt-2">
+                  {info.title}
+                </DrawerTitle>
+              </DrawerHeader>
+
+              <div className="px-4 py-4">
+                <div className="flex items-start gap-2">
+                  <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="font-mono text-xs leading-relaxed text-charcoal">
+                    {info.action}
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-4 py-3 border-t border-border bg-muted/50">
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-1 bg-border overflow-hidden">
+                    <div
+                      className="h-full bg-primary transition-all duration-500"
+                      style={{ width: `${(currentStep / 6) * 100}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono text-muted-foreground">
+                    {currentStep}/6
+                  </span>
+                </div>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Mobile collapsed indicator */}
+        {!isOpen && (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 text-xs font-bold uppercase tracking-wider shadow-lg"
+          >
+            <ChevronUp className="w-4 h-4" />
+            STEP {currentStep}
+          </button>
+        )}
+      </>
+    );
+  }
+
+  // Desktop: Right-side panel
   return (
     <>
       {/* Panel */}

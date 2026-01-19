@@ -48,37 +48,42 @@ export default function CausalWorkflow() {
   };
 
   return (
-    <div className="min-h-screen py-8">
+    <div className="min-h-screen py-4 md:py-8">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 md:mb-8">
           {/* Action Info Panel */}
           <ActionInfoPanel currentStep={currentStep} />
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <Link to="/">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                BACK TO SILOS
+              <Button variant="outline" size="sm" className="min-h-[44px] sm:min-h-0">
+                <ArrowLeft className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">BACK TO SILOS</span>
               </Button>
             </Link>
-            <div>
-              <h1 className="text-xl font-extrabold text-charcoal">CAUSEWAY WORKFLOW ENGINE</h1>
-              <p className="text-sm text-muted-foreground">
-                6-step causal analysis process
+            <div className="flex-1 sm:flex-none">
+              <h1 className="text-lg md:text-xl font-extrabold text-charcoal">CAUSEWAY WORKFLOW</h1>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                6-step causal analysis
               </p>
             </div>
           </div>
           {currentStep > 1 && (
-            <Button variant="ghost" size="sm" onClick={handleReset}>
-              <RotateCcw className="w-4 h-4 mr-2" />
-              RESET
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleReset}
+              className="min-h-[44px] sm:min-h-0"
+            >
+              <RotateCcw className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">RESET</span>
             </Button>
           )}
         </div>
 
         {/* Stepper */}
-        <div className="mb-12 border-b border-border pb-8">
+        <div className="mb-8 md:mb-12 border-b border-border pb-4 md:pb-8">
           <WorkflowStepper
             currentStep={currentStep}
             onStepClick={(step) => step <= currentStep && setCurrentStep(step)}
