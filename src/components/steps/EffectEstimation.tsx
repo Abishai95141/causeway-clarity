@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Cpu, Activity, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -54,38 +54,38 @@ export function EffectEstimation({ onComplete }: EffectEstimationProps) {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-8">
-        <h2 className="text-2xl font-extrabold text-charcoal mb-2">
+      <div className="mb-6 md:mb-8">
+        <h2 className="text-xl md:text-2xl font-extrabold text-charcoal mb-2">
           STEP 4: EFFECT ESTIMATION
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-sm md:text-base text-muted-foreground">
           Calculate the causal effect using the identified strategy.
         </p>
       </div>
 
       <div className="industrial-card">
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 md:mb-8">
           <div className={cn(
-            'p-4 transition-all duration-300',
+            'p-3 md:p-4 transition-all duration-300',
             calculating ? 'bg-primary text-primary-foreground animate-pulse' : 'bg-charcoal text-white'
           )}>
-            <Cpu className="w-8 h-8" />
+            <Cpu className="w-6 h-6 md:w-8 md:h-8" />
           </div>
           <div>
-            <h3 className="font-bold text-xl">Causal Engine</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="font-bold text-lg md:text-xl">Causal Engine</h3>
+            <p className="text-xs md:text-sm text-muted-foreground">
               Doubly Robust Estimator with Bootstrap Confidence Intervals
             </p>
           </div>
         </div>
 
         {!calculating && !completed && (
-          <div className="text-center py-12">
-            <Activity className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground mb-6">
+          <div className="text-center py-8 md:py-12">
+            <Activity className="w-12 h-12 md:w-16 md:h-16 mx-auto text-muted-foreground mb-4" />
+            <p className="text-sm md:text-base text-muted-foreground mb-6">
               Ready to estimate the causal effect of the treatment on the outcome.
             </p>
-            <Button onClick={handleCalculate} size="xl">
+            <Button onClick={handleCalculate} size="xl" className="min-h-[44px]">
               <Cpu className="w-5 h-5 mr-2" />
               RUN ESTIMATION
             </Button>
@@ -93,30 +93,30 @@ export function EffectEstimation({ onComplete }: EffectEstimationProps) {
         )}
 
         {calculating && (
-          <div className="py-8 animate-fade-in">
+          <div className="py-6 md:py-8 animate-fade-in">
             <div className="progress-industrial mb-4">
               <div
                 className="progress-industrial-bar"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-mono text-muted-foreground">{phase}</span>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <span className="text-xs md:text-sm font-mono text-muted-foreground">{phase}</span>
               <span className="data-value text-lg text-primary">{progress}%</span>
             </div>
 
-            <div className="mt-8 grid grid-cols-4 gap-4">
+            <div className="mt-6 md:mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {['Bootstrap', 'Propensity', 'Outcome', 'Doubly Robust'].map((model, i) => (
                 <div
                   key={model}
                   className={cn(
-                    'p-3 border-2 text-center transition-all duration-300',
+                    'p-2 md:p-3 border-2 text-center transition-all duration-300',
                     progress > (i + 1) * 20
                       ? 'bg-charcoal text-white border-charcoal'
                       : 'bg-muted border-border'
                   )}
                 >
-                  <span className="text-xs font-bold uppercase">{model}</span>
+                  <span className="text-[10px] md:text-xs font-bold uppercase">{model}</span>
                 </div>
               ))}
             </div>
@@ -124,50 +124,50 @@ export function EffectEstimation({ onComplete }: EffectEstimationProps) {
         )}
 
         {completed && results && (
-          <div className="py-8 animate-scale-in">
-            <div className="flex items-center gap-2 text-green-600 mb-6">
-              <CheckCircle2 className="w-6 h-6" />
-              <span className="font-bold text-lg">ESTIMATION COMPLETE</span>
+          <div className="py-6 md:py-8 animate-scale-in">
+            <div className="flex items-center gap-2 text-green-600 mb-4 md:mb-6">
+              <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" />
+              <span className="font-bold text-base md:text-lg">ESTIMATION COMPLETE</span>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-6 bg-accent border-2 border-primary">
-                <p className="text-xs font-bold uppercase text-muted-foreground mb-2">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+              <div className="p-4 md:p-6 bg-accent border-2 border-primary col-span-2 lg:col-span-1">
+                <p className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground mb-2">
                   Average Treatment Effect
                 </p>
-                <p className="data-value text-4xl text-primary">{results.ate}pp</p>
-                <p className="text-xs text-muted-foreground mt-1">Retention Change</p>
+                <p className="data-value text-2xl md:text-4xl text-primary">{results.ate}pp</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground mt-1">Retention Change</p>
               </div>
 
-              <div className="p-6 bg-muted border-2 border-border">
-                <p className="text-xs font-bold uppercase text-muted-foreground mb-2">
+              <div className="p-4 md:p-6 bg-muted border-2 border-border">
+                <p className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground mb-2">
                   95% Confidence Interval
                 </p>
-                <p className="data-value text-2xl">
+                <p className="data-value text-xl md:text-2xl">
                   [{results.ci[0]}, {results.ci[1]}]
                 </p>
-                <p className="text-xs text-muted-foreground mt-1">Percentage Points</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground mt-1">Percentage Points</p>
               </div>
 
-              <div className="p-6 bg-muted border-2 border-border">
-                <p className="text-xs font-bold uppercase text-muted-foreground mb-2">
+              <div className="p-4 md:p-6 bg-muted border-2 border-border">
+                <p className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground mb-2">
                   P-Value
                 </p>
-                <p className="data-value text-2xl text-green-600">{results.pValue}</p>
-                <p className="text-xs text-muted-foreground mt-1">Statistically Significant</p>
+                <p className="data-value text-xl md:text-2xl text-green-600">{results.pValue}</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground mt-1">Statistically Significant</p>
               </div>
 
-              <div className="p-6 bg-muted border-2 border-border">
-                <p className="text-xs font-bold uppercase text-muted-foreground mb-2">
+              <div className="p-4 md:p-6 bg-muted border-2 border-border">
+                <p className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground mb-2">
                   Sample Size
                 </p>
-                <p className="data-value text-2xl">{results.samples.toLocaleString()}</p>
-                <p className="text-xs text-muted-foreground mt-1">Customer Records</p>
+                <p className="data-value text-xl md:text-2xl">{results.samples.toLocaleString()}</p>
+                <p className="text-[10px] md:text-xs text-muted-foreground mt-1">Customer Records</p>
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-orange-50 border-2 border-orange-300">
-              <p className="text-sm">
+            <div className="mt-4 md:mt-6 p-3 md:p-4 bg-orange-50 border-2 border-orange-300">
+              <p className="text-xs md:text-sm">
                 <span className="font-bold text-orange-700">⚠ INTERPRETATION:</span>{' '}
                 A 15% price increase is estimated to cause a{' '}
                 <span className="data-value text-primary">{Math.abs(results.ate)}pp decrease</span>{' '}
@@ -179,8 +179,8 @@ export function EffectEstimation({ onComplete }: EffectEstimationProps) {
       </div>
 
       {completed && (
-        <div className="mt-8 flex justify-end animate-fade-in">
-          <Button onClick={onComplete} size="lg">
+        <div className="mt-6 md:mt-8 flex justify-end animate-fade-in">
+          <Button onClick={onComplete} size="lg" className="min-h-[44px] w-full sm:w-auto">
             PROCEED TO EXPERIMENT PLAN
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>

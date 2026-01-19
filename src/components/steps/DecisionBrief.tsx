@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { 
   FileText, 
   CheckCircle2, 
-  XCircle, 
   Download, 
   Printer,
   TrendingDown,
@@ -28,19 +27,19 @@ export function DecisionBrief() {
   if (!brief) {
     return (
       <div className="animate-fade-in">
-        <div className="mb-8">
-          <h2 className="text-2xl font-extrabold text-charcoal mb-2">
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-xl md:text-2xl font-extrabold text-charcoal mb-2">
             STEP 6: DECISION BRIEF
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text-base text-muted-foreground">
             Generate an auditable decision document with all findings.
           </p>
         </div>
 
-        <div className="industrial-card text-center py-16">
-          <FileText className="w-16 h-16 mx-auto text-muted-foreground mb-6" />
-          <h3 className="text-xl font-bold mb-2">Ready to Generate Brief</h3>
-          <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+        <div className="industrial-card text-center py-12 md:py-16">
+          <FileText className="w-12 h-12 md:w-16 md:h-16 mx-auto text-muted-foreground mb-4 md:mb-6" />
+          <h3 className="text-lg md:text-xl font-bold mb-2">Ready to Generate Brief</h3>
+          <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 max-w-md mx-auto px-4">
             The decision brief will compile all causal analysis findings into a 
             formal, exportable document with explicit assumptions and recommendations.
           </p>
@@ -49,6 +48,7 @@ export function DecisionBrief() {
             disabled={generating}
             variant={generating ? 'loading' : 'default'}
             size="xl"
+            className="min-h-[44px]"
           >
             {generating ? (
               <>
@@ -69,42 +69,42 @@ export function DecisionBrief() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-8 flex items-start justify-between">
+      <div className="mb-6 md:mb-8 flex flex-col sm:flex-row items-start justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-charcoal mb-2">
+          <h2 className="text-xl md:text-2xl font-extrabold text-charcoal mb-2">
             DECISION BRIEF
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text-base text-muted-foreground">
             Auditable summary of causal analysis findings
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <Printer className="w-4 h-4 mr-2" />
-            PRINT
+        <div className="flex gap-2 w-full sm:w-auto">
+          <Button variant="outline" size="sm" className="flex-1 sm:flex-none min-h-[44px]">
+            <Printer className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">PRINT</span>
           </Button>
-          <Button variant="industrial" size="sm">
-            <Download className="w-4 h-4 mr-2" />
-            EXPORT PDF
+          <Button variant="industrial" size="sm" className="flex-1 sm:flex-none min-h-[44px]">
+            <Download className="w-4 h-4 sm:mr-2" />
+            <span className="hidden sm:inline">EXPORT PDF</span>
           </Button>
         </div>
       </div>
 
       {/* Header */}
-      <div className="industrial-card border-l-8 border-l-primary mb-8">
-        <div className="flex justify-between items-start mb-4">
+      <div className="industrial-card border-l-4 md:border-l-8 border-l-primary mb-6 md:mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
           <div>
-            <span className="data-value text-xs text-muted-foreground">BRIEF ID</span>
-            <p className="font-mono font-bold text-lg">{brief.id}</p>
+            <span className="data-value text-[10px] md:text-xs text-muted-foreground">BRIEF ID</span>
+            <p className="font-mono font-bold text-sm md:text-lg">{brief.id}</p>
           </div>
-          <div className="text-right">
-            <span className="data-value text-xs text-muted-foreground">GENERATED</span>
-            <p className="font-mono">{brief.timestamp.toLocaleString()}</p>
+          <div className="sm:text-right">
+            <span className="data-value text-[10px] md:text-xs text-muted-foreground">GENERATED</span>
+            <p className="font-mono text-sm md:text-base">{brief.timestamp.toLocaleString()}</p>
           </div>
         </div>
-        <div className="p-4 bg-muted border-2 border-border">
-          <span className="text-xs font-bold uppercase text-muted-foreground">Causal Query</span>
-          <p className="font-mono text-lg mt-1">
+        <div className="p-3 md:p-4 bg-muted border-2 border-border">
+          <span className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground">Causal Query</span>
+          <p className="font-mono text-sm md:text-lg mt-1">
             Effect of <span className="text-primary font-bold">{brief.query.treatment}</span> on{' '}
             <span className="text-primary font-bold">{brief.query.outcome}</span>
           </p>
@@ -113,27 +113,27 @@ export function DecisionBrief() {
 
       {/* Causal Assumptions */}
       <div className="memo-section">
-        <h3 className="text-lg font-extrabold uppercase mb-4">1. Causal Assumptions</h3>
-        <div className="space-y-3">
+        <h3 className="text-base md:text-lg font-extrabold uppercase mb-4">1. Causal Assumptions</h3>
+        <div className="space-y-2 md:space-y-3">
           {brief.assumptions.map((assumption, i) => (
             <div
               key={i}
               className={cn(
-                'flex items-start gap-3 p-3 border-2',
+                'flex items-start gap-2 md:gap-3 p-2 md:p-3 border-2',
                 assumption.verified 
                   ? 'bg-green-50 border-green-300' 
                   : 'bg-orange-50 border-orange-300'
               )}
             >
               {assumption.verified ? (
-                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-green-600 flex-shrink-0 mt-0.5" />
               ) : (
-                <AlertTriangle className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-orange-500 flex-shrink-0 mt-0.5" />
               )}
               <div>
-                <p className="text-sm font-medium">{assumption.text}</p>
+                <p className="text-xs md:text-sm font-medium">{assumption.text}</p>
                 <span className={cn(
-                  'text-xs font-bold uppercase mt-1 inline-block',
+                  'text-[10px] md:text-xs font-bold uppercase mt-1 inline-block',
                   assumption.verified ? 'text-green-600' : 'text-orange-600'
                 )}>
                   {assumption.verified ? 'VERIFIED' : 'REQUIRES SENSITIVITY ANALYSIS'}
@@ -146,21 +146,21 @@ export function DecisionBrief() {
 
       {/* Estimated Impact */}
       <div className="memo-section">
-        <h3 className="text-lg font-extrabold uppercase mb-4">2. Estimated Impact</h3>
-        <div className="grid md:grid-cols-3 gap-4">
+        <h3 className="text-base md:text-lg font-extrabold uppercase mb-4">2. Estimated Impact</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {brief.estimatedImpact.map((impact, i) => (
             <div key={i} className="industrial-card">
-              <span className="text-xs font-bold uppercase text-muted-foreground">
+              <span className="text-[10px] md:text-xs font-bold uppercase text-muted-foreground">
                 {impact.metric}
               </span>
               <div className="mt-2 flex items-end gap-2">
-                <span className="data-value text-sm text-muted-foreground line-through">
+                <span className="data-value text-xs md:text-sm text-muted-foreground line-through">
                   {typeof impact.baseline === 'number' && impact.baseline !== 0 
                     ? impact.baseline.toLocaleString() 
                     : '—'}
                 </span>
                 <span className={cn(
-                  'data-value text-3xl',
+                  'data-value text-2xl md:text-3xl',
                   impact.projected < impact.baseline ? 'text-primary' : 'text-green-600'
                 )}>
                   {impact.metric.includes('Revenue') && impact.projected > 0 ? '+$' : ''}
@@ -168,9 +168,9 @@ export function DecisionBrief() {
                   {impact.metric.includes('Rate') ? '%' : ''}
                 </span>
                 {impact.projected < impact.baseline ? (
-                  <TrendingDown className="w-5 h-5 text-primary" />
+                  <TrendingDown className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 ) : (
-                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-600" />
                 )}
               </div>
               <div className="mt-2 flex items-center gap-2">
@@ -180,7 +180,7 @@ export function DecisionBrief() {
                     style={{ width: `${impact.confidence}%` }}
                   />
                 </div>
-                <span className="data-value text-xs text-muted-foreground">
+                <span className="data-value text-[10px] md:text-xs text-muted-foreground">
                   {impact.confidence}% conf.
                 </span>
               </div>
@@ -191,28 +191,28 @@ export function DecisionBrief() {
 
       {/* Monitoring Plan */}
       <div className="memo-section">
-        <h3 className="text-lg font-extrabold uppercase mb-4">3. Monitoring Plan</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+        <h3 className="text-base md:text-lg font-extrabold uppercase mb-4">3. Monitoring Plan</h3>
+        <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+          <table className="w-full border-collapse min-w-[400px]">
             <thead>
               <tr className="bg-charcoal text-white">
-                <th className="p-3 text-left text-xs font-bold uppercase">
+                <th className="p-2 md:p-3 text-left text-[10px] md:text-xs font-bold uppercase">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4" />
+                    <BarChart3 className="w-3 h-3 md:w-4 md:h-4" />
                     Metric
                   </div>
                 </th>
-                <th className="p-3 text-left text-xs font-bold uppercase">Frequency</th>
-                <th className="p-3 text-left text-xs font-bold uppercase">Alert Threshold</th>
+                <th className="p-2 md:p-3 text-left text-[10px] md:text-xs font-bold uppercase">Frequency</th>
+                <th className="p-2 md:p-3 text-left text-[10px] md:text-xs font-bold uppercase">Alert Threshold</th>
               </tr>
             </thead>
             <tbody>
               {brief.monitoringPlan.map((plan, i) => (
                 <tr key={i} className={cn('border-b border-border', i % 2 === 0 && 'bg-muted/50')}>
-                  <td className="p-3 font-medium">{plan.metric}</td>
-                  <td className="p-3 data-value">{plan.frequency}</td>
-                  <td className="p-3">
-                    <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-bold">
+                  <td className="p-2 md:p-3 font-medium text-xs md:text-sm">{plan.metric}</td>
+                  <td className="p-2 md:p-3 data-value text-xs md:text-sm">{plan.frequency}</td>
+                  <td className="p-2 md:p-3">
+                    <span className="px-1.5 md:px-2 py-0.5 md:py-1 bg-primary/10 text-primary text-[10px] md:text-xs font-bold">
                       {plan.threshold}
                     </span>
                   </td>
@@ -224,18 +224,19 @@ export function DecisionBrief() {
       </div>
 
       {/* Recommendation */}
-      <div className="industrial-card border-4 border-primary bg-accent">
-        <h3 className="text-lg font-extrabold uppercase mb-4 flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-primary" />
+      <div className="industrial-card border-2 md:border-4 border-primary bg-accent">
+        <h3 className="text-base md:text-lg font-extrabold uppercase mb-4 flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
           Final Recommendation
         </h3>
-        <p className="text-lg font-medium leading-relaxed">{brief.recommendation}</p>
+        <p className="text-sm md:text-lg font-medium leading-relaxed">{brief.recommendation}</p>
       </div>
 
-      <div className="mt-8 text-center text-sm text-muted-foreground">
+      <div className="mt-6 md:mt-8 text-center text-xs md:text-sm text-muted-foreground">
         <p>
           This decision brief was generated by the Causality-Aware Decision Intelligence System.
-          <br />
+          <br className="hidden sm:block" />
+          <span className="sm:hidden"> </span>
           All estimates are based on observational data and should be validated with experimental evidence.
         </p>
       </div>
